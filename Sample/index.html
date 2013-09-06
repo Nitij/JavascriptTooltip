@@ -44,22 +44,23 @@
         </table>
         
         <script type="text/javascript">
+            var tooltipJS = new ToolTipJS();
             //called after window content is loaded.
             function contentLoaded() {
-                addLocationPreference(LocationConstants.Top);                
-                addLocationPreference(LocationConstants.Right);
-                addLocationPreference(LocationConstants.Left);
-                addLocationPreference(LocationConstants.Bottom);
+                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Top);
+                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Right);
+                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Left);
+                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Bottom);
                 
-                ApplyTooltip("Div1", getProductContent("The Swede White", "29.00", "white"), 20);
-                ApplyTooltip("Div2", getProductContent("Six by Seven", "29.00", "#DAF4F0"), 20);
-                ApplyTooltip("Div3", getProductContent("1959", "29.00", "red"), 20);
-                ApplyTooltip("Div4", getProductContent("The Professional", "29.00", "blue"), 20);
-                ApplyTooltip("Div5", getProductContent("The MAPC", "29.00", "gray"), 20);
-                ApplyTooltip("Div6", getProductContent("Rangefinder Classic", "29.00", "white"), 20);
-                ApplyTooltip("Div7", getProductContent("Street Shooter", "29.00", "red"), 20);
-                ApplyTooltip("Div8", getProductContent("The Swede", "29.00", "black"), 20);
-                ApplyTooltip("Div9", getProductContent("Fast Shooter", "29.00", "gray"), 20);
+                tooltipJS.applyTooltip("Div1", getProductContent("The Swede White", "29.00", "white"), 20);
+                tooltipJS.applyTooltip("Div2", getProductContent("Six by Seven", "29.00", "#DAF4F0"), 20);
+                tooltipJS.applyTooltip("Div3", getProductContent("1959", "29.00", "red"), 20);
+                tooltipJS.applyTooltip("Div4", getProductContent("The Professional", "29.00", "blue"), 20);
+                tooltipJS.applyTooltip("Div5", getProductContent("The MAPC", "29.00", "gray"), 20);
+                tooltipJS.applyTooltip("Div6", getProductContent("Rangefinder Classic", "29.00", "white"), 20);
+                tooltipJS.applyTooltip("Div7", getProductContent("Street Shooter", "29.00", "red"), 20);
+                tooltipJS.applyTooltip("Div8", getProductContent("The Swede", "29.00", "black"), 20);
+                tooltipJS.applyTooltip("Div9", getProductContent("Fast Shooter", "29.00", "gray"), 20);
             }
 
             function getProductContent(description, price, color) {
