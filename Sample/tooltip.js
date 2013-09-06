@@ -18,9 +18,9 @@ function resetLocationPreference(l) {
     locationPreference = [];
 }
 (function () {
+    var applyTooltip = null;
     //applies the tooltip show and hide functions on the mouseover and
     //mouseout events of the source control
-    var applyTooltip = null;
     applyTooltip = function (sourceControlId, content, distance) {
         var divToolTip = null;
         var sourceControl = $("#" + sourceControlId);
@@ -55,7 +55,6 @@ function resetLocationPreference(l) {
         var sourceControl = e.data.sourceControl;
         var content = e.data.content;
         var targetLeft = null, targetTop = null; //top and left of the tooltip div
-        var locationDecided = false;
         var top = sourceControl.offset().top;
         var left = sourceControl.offset().left;
         var right = sourceControl.offset().left + sourceControl.outerWidth();
@@ -63,20 +62,15 @@ function resetLocationPreference(l) {
         var divToolTip = $("#divToolTip");
         var distance = e.data.distance;
 
-        divToolTip.unbind('mouseover mouseout');
-
         divToolTip.removeClass(); //remove any previous class
         //reset top and left
         divToolTip.css("top", 0);
         divToolTip.css("left", 0);
         divToolTip.html(content); //set the tooltip content
         for (; i < locationPreference.length; i++) {
-            if (locationDecided === true) {
-                break;
-            };
             switch (locationPreference[i]) {
                 case LocationConstants.Top:
-                    if (divToolTip.outerHeight() > top) {
+                    if (divToolTip.outerHeight() + distance > top) {
                         continue;
                     }
                     else {
@@ -88,7 +82,7 @@ function resetLocationPreference(l) {
                     }
                     break;
                 case LocationConstants.Right:
-                    if (divToolTip.outerWidth() > $(document).width() - right + distance) {
+                    if ((divToolTip.outerWidth() + distance) > ($(document).width() - right)) {
                         continue;
                     }
                     else {
@@ -98,7 +92,7 @@ function resetLocationPreference(l) {
                     }
                     break;
                 case LocationConstants.Left:
-                    if (divToolTip.outerWidth() > left) {
+                    if (divToolTip.outerWidth() + distance > left) {
                         continue;
                     }
                     else {
@@ -108,7 +102,7 @@ function resetLocationPreference(l) {
                     }
                     break;
                 case LocationConstants.Bottom:
-                    if (divToolTip.outerHeight() > $(document).height() - bottom) {
+                    if (divToolTip.outerHeight() + distance > $(document).height() - bottom) {
                         continue;
                     }
                     else {
@@ -118,7 +112,7 @@ function resetLocationPreference(l) {
                     }
                     break;
             }
-            locationDecided = true;
+            break;
         }
 
         $("#divToolTip").css("top", targetTop);
