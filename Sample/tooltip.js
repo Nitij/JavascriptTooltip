@@ -2,25 +2,44 @@
 var ToolTipJS = null;
 (function () {
     var toolTipJS = function () {
+        //***Summary***
         //array to hold tooltip location preferences
+        //*************
         this.locationPreference = [];
+
+        //***Summary***
         //tooltip location constants
+        //*************
+
         this.LocationConstants = {
             Top: 1,
             Left: 2,
             Right: 3,
             Bottom: 4
         };
+
+        //***Summary***
         //Add a location preference
+        //*************
         this.addLocationPreference = function (l) {
             this.locationPreference.push(l);
         };
+
+        //***Summary***
         //Resets location preferences
-        this.resetLocationPreference = function(l) {
+        //*************
+        this.resetLocationPreference = function() {
             this.locationPreference = [];
         }
+
+        //***Summary***
         //applies the tooltip show and hide functions on the mouseover and
         //mouseout events of the source control
+        //***Params****
+        //sourceControlId = ID of source control.
+        //content = Tooltip content.
+        //distance = Distance between the tooltip and the source control.
+        //*************
         this.applyTooltip = function (sourceControlId, content, distance) {
             var divToolTip = null;
             var sourceControl = $("#" + sourceControlId);
@@ -49,8 +68,11 @@ var ToolTipJS = null;
             }, this.showToolTip);
             sourceControl.mouseout(this.hideTooltip);
         };
+
+        //***Summary***
         //show the tooltip after computing the position and the correct style to apply on
         //the tooltip div.
+        //*************
         this.showToolTip = function (e) {
             var i = 0;
             var sourceControl = e.data.sourceControl;
@@ -76,10 +98,10 @@ var ToolTipJS = null;
                             continue;
                         }
                         else {
-                            $("#divToolTip").addClass("tooltip-Top");
+                            divToolTip.addClass("tooltip-Top");
                             targetLeft = left;
                             //we need to set css left here to correctly compute the tooltip div height
-                            $("#divToolTip").css("left", targetLeft);
+                            divToolTip.css("left", targetLeft);
                             targetTop = top - divToolTip.outerHeight() - distance;
                         }
                         break;
@@ -88,7 +110,7 @@ var ToolTipJS = null;
                             continue;
                         }
                         else {
-                            $("#divToolTip").addClass("tooltip-Right");
+                            divToolTip.addClass("tooltip-Right");
                             targetLeft = right + distance;
                             targetTop = top;
                         }
@@ -98,7 +120,7 @@ var ToolTipJS = null;
                             continue;
                         }
                         else {
-                            $("#divToolTip").addClass("tooltip-Left");
+                            divToolTip.addClass("tooltip-Left");
                             targetLeft = left - divToolTip.outerWidth() - distance;
                             targetTop = top;
                         }
@@ -108,7 +130,7 @@ var ToolTipJS = null;
                             continue;
                         }
                         else {
-                            $("#divToolTip").addClass("tooltip-Bottom");
+                            divToolTip.addClass("tooltip-Bottom");
                             targetLeft = left;
                             targetTop = bottom + distance;
                         }
@@ -116,12 +138,15 @@ var ToolTipJS = null;
                 }
                 break;
             }
-
-            $("#divToolTip").css("top", targetTop);
-            $("#divToolTip").css("left", targetLeft);
-            $("#divToolTip").css("display", "block");
+            //apply the top and left for the tooltip div
+            divToolTip.css("top", targetTop);
+            divToolTip.css("left", targetLeft);
+            divToolTip.css("display", "block");
         };
+
+        //***Summary***
         //hides the toooltip div.
+        //*************
         this.hideTooltip = function () {
             $("#divToolTip").css("display", "none");
         };

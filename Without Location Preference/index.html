@@ -44,18 +44,13 @@
         </table>
         
         <script type="text/javascript">
+            //Lets first initialize our tooltip object
             var tooltipJS = null;
             //called after window content is loaded.
             function contentLoaded() {
                 //Lets first initialize our tooltip object
                 tooltipJS = new ToolTipJS();
 
-                //set the tooltip location preference
-                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Top);
-                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Right);
-                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Left);
-                tooltipJS.addLocationPreference(tooltipJS.LocationConstants.Bottom);
-                
                 //apply tooltips to all the DIVs.
                 tooltipJS.applyTooltip("Div1", getProductContent("The Swede White", "29.00", "white"), 20);
                 tooltipJS.applyTooltip("Div2", getProductContent("Six by Seven", "29.00", "#DAF4F0"), 20);
