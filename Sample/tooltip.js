@@ -1,6 +1,5 @@
 ;
-var ToolTipJS = null;
-(function () {
+(function (jQuery, w) {
     var toolTipJS = function () {
         //***Summary***
         //array to hold tooltip location preferences
@@ -10,7 +9,6 @@ var ToolTipJS = null;
         //***Summary***
         //tooltip location constants
         //*************
-
         this.LocationConstants = {
             Top: 1,
             Left: 2,
@@ -151,5 +149,5 @@ var ToolTipJS = null;
             $("#divToolTip").css("display", "none");
         };
     };
-    ToolTipJS = toolTipJS;
-})();
+    w["ToolTipJS"] = toolTipJS;
+})($, window);
