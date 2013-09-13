@@ -8,6 +8,14 @@
         this.locationPreference = [];
 
         //***Summary***
+        //Location object to be added to the location preference list
+        //*************
+        this.tooltipLocation = function (location, className) {
+            this.location = location;
+            this.className = className;
+        };
+
+        //***Summary***
         //tooltip location constants
         //*************
         this.LocationConstants = {
@@ -32,6 +40,11 @@
         }
 
         //***Summary***
+        //Flag to check if the mouse pointer is inside the source element
+        //*************
+        this.inside = false;
+
+        //***Summary***
         //applies the tooltip show and hide functions on the mouseover and
         //mouseout events of the source control
         //***Params****
@@ -39,10 +52,12 @@
         //content = Tooltip content.
         //distance = Distance between the tooltip and the source control.
         //*************
-        this.applyTooltip = function (sourceControlId, content, distance) {
+        this.applyTooltip = function (sourceControlId, content, distance, showAtPointer) {
             var divToolTip = null;
             var showTooltipDelegate = null;
+            var hideTooltipDelegate = null;
             var sourceControl = $("#" + sourceControlId);
+            var params = null;
             divToolTip = $("#divToolTip");
 
             //create our tooltip div if not already present
@@ -57,13 +72,22 @@
 
             //delegate to change the calling context to our toolTipJS object
             showTooltipDelegate = $.proxy(showToolTip, this);
-
-            sourceControl.mouseover({
+            hideTooltipDelegate = $.proxy(hideTooltip, this);
+            params = {
                 "sourceControl": sourceControl,
                 "content": content,
-                "distance": distance
-            }, showTooltipDelegate);
-            sourceControl.mouseout(hideTooltip);
+                "distance": distance,
+                "showAtPointer": showAtPointer
+            }
+
+            if (showAtPointer === false) {
+                sourceControl.mouseover(params, showTooltipDelegate);
+            }
+            else {
+                sourceControl.mousemove(params, showTooltipDelegate);
+            }            
+
+            sourceControl.mouseout(hideTooltipDelegate);
         };
     };
 
@@ -73,29 +97,37 @@
     //*************
     function showToolTip(e) {
         var i = 0;
+        var showAtPointer = e.data.showAtPointer;
         var sourceControl = e.data.sourceControl;
         var content = e.data.content;
         var targetLeft = null, targetTop = null; //top and left of the tooltip div
         var top = sourceControl.offset().top;
         var left = sourceControl.offset().left;
         var right = sourceControl.offset().left + sourceControl.outerWidth();
-        var bottom = sourceControl.offset().top + sourceControl.outerHeight();
+        var bottom = sourceControl.offset().top + sourceControl.outerHeight();        
         var divToolTip = $("#divToolTip");
         var distance = e.data.distance;
 
+        if (showAtPointer === true) {
+            left = right = e.pageX;
+            top = bottom = e.pageY;
+        }
+
         divToolTip.removeClass(); //remove any previous class
         //reset top and left
-        divToolTip.css("top", 0);
-        divToolTip.css("left", 0);
+        if (this.inside === false) {
+            divToolTip.css("top", 0);
+            divToolTip.css("left", 0);
+        }
+        debugger;
         divToolTip.html(content); //set the tooltip content
         for (; i < this.locationPreference.length; i++) {
-            switch (this.locationPreference[i]) {
+            switch (this.locationPreference[i].location) {
                 case this.LocationConstants.Top:
                     if (divToolTip.outerHeight() + distance > top) {
                         continue;
                     }
                     else {
-                        divToolTip.addClass("tooltip-Top");
                         targetLeft = left;
                         //we need to set css left here to correctly compute the tooltip div height
                         divToolTip.css("left", targetLeft);
@@ -103,11 +135,10 @@
                     }
                     break;
                 case this.LocationConstants.Right:
-                    if ((divToolTip.outerWidth() + distance) > ($(document).width() - right)) {
+                    if ((divToolTip.outerWidth() + distance) > ($(window).width() - right)) {
                         continue;
                     }
                     else {
-                        divToolTip.addClass("tooltip-Right");
                         targetLeft = right + distance;
                         targetTop = top;
                     }
@@ -117,7 +148,6 @@
                         continue;
                     }
                     else {
-                        divToolTip.addClass("tooltip-Left");
                         targetLeft = left - divToolTip.outerWidth() - distance;
                         targetTop = top;
                     }
@@ -127,24 +157,28 @@
                         continue;
                     }
                     else {
-                        divToolTip.addClass("tooltip-Bottom");
                         targetLeft = left;
                         targetTop = bottom + distance;
                     }
                     break;
             }
+            divToolTip.addClass(this.locationPreference[i].className);
             break;
         }
         //apply the top and left for the tooltip div
         divToolTip.css("top", targetTop);
         divToolTip.css("left", targetLeft);
-        divToolTip.css("display", "block");
+        if (this.inside === false) {
+            divToolTip.css("display", "block");
+            this.inside = true;
+        }        
     };
 
     //***Summary***
     //hides the toooltip div.
     //*************
     function hideTooltip() {
+        this.inside = false;
         $("#divToolTip").css("display", "none");
     };
     
