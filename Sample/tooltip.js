@@ -119,7 +119,6 @@
             divToolTip.css("top", 0);
             divToolTip.css("left", 0);
         }
-        debugger;
         divToolTip.html(content); //set the tooltip content
         for (; i < this.locationPreference.length; i++) {
             switch (this.locationPreference[i].location) {
@@ -128,6 +127,8 @@
                         continue;
                     }
                     else {
+                        //need to set the css here so as to retrieve final height after applying css
+                        divToolTip.addClass(this.locationPreference[i].className);
                         targetLeft = left;
                         //we need to set css left here to correctly compute the tooltip div height
                         divToolTip.css("left", targetLeft);
@@ -139,6 +140,7 @@
                         continue;
                     }
                     else {
+                        divToolTip.addClass(this.locationPreference[i].className);
                         targetLeft = right + distance;
                         targetTop = top;
                     }
@@ -148,21 +150,24 @@
                         continue;
                     }
                     else {
+                        //need to set the css here so as to retrieve final width after applying css
+                        divToolTip.addClass(this.locationPreference[i].className);
                         targetLeft = left - divToolTip.outerWidth() - distance;
                         targetTop = top;
                     }
                     break;
                 case this.LocationConstants.Bottom:
-                    if (divToolTip.outerHeight() + distance > $(document).height() - bottom) {
+                    if (divToolTip.outerHeight() + distance > $(window).height() - bottom) {
                         continue;
                     }
                     else {
+                        divToolTip.addClass(this.locationPreference[i].className);
                         targetLeft = left;
                         targetTop = bottom + distance;
                     }
                     break;
             }
-            divToolTip.addClass(this.locationPreference[i].className);
+            
             break;
         }
         //apply the top and left for the tooltip div
