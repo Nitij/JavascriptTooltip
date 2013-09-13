@@ -51,6 +51,8 @@
         //sourceControlId = ID of source control.
         //content = Tooltip content.
         //distance = Distance between the tooltip and the source control.
+        //showAtPointer = Flag to determine if the tooltip will e stationary
+        //or will be moving with the mouse pointer
         //*************
         this.applyTooltip = function (sourceControlId, content, distance, showAtPointer) {
             var divToolTip = null;

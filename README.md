@@ -13,7 +13,7 @@ Include the javascript file in your page and follow these simple steps to apply 
 tooltipJS = new ToolTipJS();
 ```
 
-###Add the tooltip location preferences by using the function "**addLocationPreference**".
+###Add the tooltip location preferences by using the function "addLocationPreference".
 
 ```
 tooltipJS.addLocationPreference(new tooltipJS.tooltipLocation(tooltipJS.LocationConstants.Top, "tooltip-Top"));
@@ -22,7 +22,7 @@ tooltipJS.addLocationPreference(new tooltipJS.tooltipLocation(tooltipJS.Location
 tooltipJS.addLocationPreference(new tooltipJS.tooltipLocation(tooltipJS.LocationConstants.Bottom, "tooltip-Bottom"));
 ```
 
-###Apply the tooltip by calling function "**applyTooltip**". 
+###Apply the tooltip by calling function "applyTooltip". 
 
 ```
 tooltipJS.applyTooltip("Div1", getProductContent("The Swede White", "29.00", "white"), 20, false);
