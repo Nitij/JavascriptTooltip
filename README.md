@@ -39,6 +39,7 @@ Parameters:
 
 _location_: An object of type TooltipJS.tooltipLocation which contains the location constant and the css class name. 
 
+***
 
 **TooltipJS.tooltipLocation** object constructor has the following parameters: 
 
@@ -48,6 +49,7 @@ _location_: A value from the TooltipJS.LocationConstants indicating a single loc
 
 _className_: Css class to be applied when the tooltip is showing at that particular location.
 
+***
 
 **applyTooltip**: Applies the tooltip to a particular page element.
 
@@ -61,6 +63,7 @@ _distance_: Distance between the source element and the tooltip. If showAtPointe
 
 _showAtPointer_: If set to true then the tooltip will move with the moving mouse pointer over the source element. 
 
+***
 
 **resetLocationPreference**: resets the location preference.
 
