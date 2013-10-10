@@ -67,4 +67,4 @@ _showAtPointer_: If set to true then the tooltip will move with the moving mouse
 
 **resetLocationPreference**: resets the location preference.
 
-That was it, have fun creating tooltips!!
+That was it, have fun creating tooltips.
