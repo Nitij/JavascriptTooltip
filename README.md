@@ -13,7 +13,7 @@ Include the javascript file in your page and follow these simple steps to apply 
 tooltipJS = new ToolTipJS();
 ```
 
-###Add the tooltip location preferences by using the function "addLocationPreference".
+###Add the tooltip location preferences by using the function "addLocationPreference". 
 
 ```
 tooltipJS.addLocationPreference(new tooltipJS.tooltipLocation(tooltipJS.LocationConstants.Top, "tooltip-Top"));
